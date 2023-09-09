@@ -1,0 +1,46 @@
+{
+    "name": "beastbytes/ordnance-survey",
+    "description": "Ordnance Survey APIs",
+    "keywords": [
+        "Ordnance Survey",
+        "api"
+    ],
+    "type": "library",
+    "license": "BSD-3-Clause",
+    "support": {
+        "issues": "https://github.com/beastbytes/ordnance-survey/issues",
+        "source": "https://github.com/beastbytes/ordnance-survey"
+    },
+    "authors": [
+        {
+            "name": "Chris Yates",
+            "email": "chris.l.yates@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "guzzlehttp/guzzle": "^7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10.0",
+        "roave/infection-static-analysis-plugin": "^1.0",
+        "roave/security-advisories": "dev-latest",
+        "vimeo/psalm": "^5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "BeastBytes\\OrdnanceSurvey\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "BeastBytes\\OrdnanceSurvey\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "infection": "roave-infection-static-analysis-plugin --log-verbosity=all --debug",
+        "psalm": "psalm",
+        "robo": "robo",
+        "test": "phpunit --testdox"
+    }
+}
