@@ -16,7 +16,7 @@ use Psr\Http\Message\ResponseInterface;
  */
 abstract class OrdnanceSurvey
 {
-    public const BASE_URI = 'https://api.os.uk/search';
+    public const BASE_URI = 'https://api.os.uk/';
     private const RESPONSE_STATUS_OK = 200;
 
     /**
