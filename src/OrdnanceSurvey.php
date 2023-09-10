@@ -20,11 +20,6 @@ abstract class OrdnanceSurvey
     private const RESPONSE_STATUS_OK = 200;
 
     /**
-     * @var string Ordnance Survey API key
-     */
-    public $key;
-
-    /**
      * @var ResponseInterface HTTP Client Response
      */
     protected static ResponseInterface $response;
@@ -55,25 +50,23 @@ abstract class OrdnanceSurvey
             'method' => 'LatLongToBNG'
         ];
 
-        self::$response = self::client()
+        return self::sendRequest('https://webapps.bgs.ac.uk/data/webservices/CoordConvert_LL_BNG.cfc', $query);
+    }
+
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
+    protected static function get(string $uri, array $query): bool|array|null
+    {
+        self::$response = (new Client(['base_uri' => self::BASE_URI]))
             ->get(
-                'https://webapps.bgs.ac.uk/data/webservices/CoordConvert_LL_BNG.cfc',
+                $uri,
                 [
                     RequestOptions::QUERY => $query,
                 ]
             )
         ;
 
-        return self::getResult();
-    }
-
-    protected static function client(): Client
-    {
-        return new Client(['base_uri' => self::BASE_URI]);
-    }
-
-    protected static function getResult(): array|bool|null
-    {
         if (self::$response->getStatusCode() === self::RESPONSE_STATUS_OK) {
             $result = Utils::jsonDecode(self::$response->getBody(), true);
             return $result['result'];
