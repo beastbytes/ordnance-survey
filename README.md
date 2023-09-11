@@ -1,4 +1,5 @@
 # Ordnance Survey
+Base class for accessing [Ordnance Survey APIs](https://www.ordnancesurvey.co.uk/products/search-for-os-products?access=d390c6fc-e792-4fd4-9907-b717aaee6f71)
 
 For license information check the [LICENSE](LICENSE.md) file.
 

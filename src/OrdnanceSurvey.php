@@ -44,13 +44,25 @@ abstract class OrdnanceSurvey
      */
     public static function latLng2Bng(array $latLng): array|bool|null
     {
-        $query = [
-            'lat' => $latLng[0],
-            'lon' => $latLng[1],
-            'method' => 'LatLongToBNG'
-        ];
+        $query = $latLng;
+        $query['method'] = 'LatLongToBNG';
 
-        return self::sendRequest('https://webapps.bgs.ac.uk/data/webservices/CoordConvert_LL_BNG.cfc', $query);
+        self::$response = (new Client())
+            ->get(
+                'https://webapps.bgs.ac.uk/data/webservices/CoordConvert_LL_BNG.cfc',
+                [
+                    RequestOptions::QUERY => $query
+                ]
+            )
+        ;
+
+        if (self::$response->getStatusCode() === self::RESPONSE_STATUS_OK) {
+            $result = Utils::jsonDecode(self::$response->getBody(), true);
+
+            return [$result['EASTING'], $result['NORTHING']];
+        }
+
+        return false;
     }
 
     /**
@@ -69,7 +81,7 @@ abstract class OrdnanceSurvey
 
         if (self::$response->getStatusCode() === self::RESPONSE_STATUS_OK) {
             $result = Utils::jsonDecode(self::$response->getBody(), true);
-            return $result['result'];
+            return $result['results'];
         }
 
         return false;

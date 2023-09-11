@@ -48,3 +48,5 @@ composer.lock
 
 # phpDocumentor cache
 /docs/cache
+
+/tests/Support/apiKey.php
