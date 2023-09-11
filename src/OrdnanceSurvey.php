@@ -11,6 +11,9 @@ use GuzzleHttp\RequestOptions;
 use GuzzleHttp\Utils;
 use Psr\Http\Message\ResponseInterface;
 
+use const PHP_ROUND_HALF_EVEN;
+use function \round;
+
 /**
  * Base class for {@link https://osdatahub.os.uk/ Ordnance Survey APIs}
  */
@@ -59,7 +62,10 @@ abstract class OrdnanceSurvey
         if (self::$response->getStatusCode() === self::RESPONSE_STATUS_OK) {
             $result = Utils::jsonDecode(self::$response->getBody(), true);
 
-            return [$result['EASTING'], $result['NORTHING']];
+            return [
+                round($result['EASTING'], 0, PHP_ROUND_HALF_EVEN),
+                round($result['NORTHING'], 0, PHP_ROUND_HALF_EVEN)
+            ];
         }
 
         return false;
