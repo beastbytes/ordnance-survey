@@ -63,8 +63,8 @@ abstract class OrdnanceSurvey
             $result = Utils::jsonDecode(self::$response->getBody(), true);
 
             return [
-                round($result['EASTING'], 0, PHP_ROUND_HALF_EVEN),
-                round($result['NORTHING'], 0, PHP_ROUND_HALF_EVEN)
+                (int)round($result['EASTING'], 0, PHP_ROUND_HALF_EVEN),
+                (int)round($result['NORTHING'], 0, PHP_ROUND_HALF_EVEN)
             ];
         }
 
